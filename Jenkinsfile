@@ -13,6 +13,14 @@ pipeline {
       }
     }
     
+    stage ('Check-Git-Secrets') {
+      steps {
+      sh 'rm trufflehog || true'  
+      sh 'docker pull andmyhacks/trufflehog --json https://github.com/devsecopsst/webapp2.git > trufflehog'
+      sh 'cat trufflehog'
+      }
+    }
+    
     stage ('Builds') {
       steps {
       sh 'mvn clean package'
