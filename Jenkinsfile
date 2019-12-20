@@ -51,12 +51,7 @@ pipeline {
         sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@3.135.185.151:/prod/apache-tomcat-8.5.50/webapps/webapp.war'
         }
       }
-      stage('DAST'){
-        steps{
-          sshagent(['zap']){
-            sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.133.91.16 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://3.135.185.151:8080/webapp"'
-          }
-        }
+      
       } 
     }
   }
